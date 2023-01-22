@@ -1,9 +1,7 @@
 package com.example.notesapp.ui.fragments.addnote
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +10,7 @@ import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentAddNoteBinding
 import com.example.notesapp.model.UserNotes
 import com.example.notesapp.viewmodel.NotesViewModel
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,19 +32,30 @@ class AddNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
-
-
-        binding.saveButton.setOnClickListener {
+        val button = activity?.findViewById<MaterialButton>(R.id.action_button)
+        button?.visibility = View.VISIBLE
+        button?.text = "Save"
+        button?.setOnClickListener {
             val title = binding.titleEditText.text.toString()
             val body = binding.bodyEditText.text.toString()
 
             saveNote(title,body)
-
         }
-//        binding.save_button.setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun saveNote(title: String, body: String) {
@@ -56,6 +66,8 @@ class AddNoteFragment : Fragment() {
             val note = UserNotes(0,title,body,null)
             notesViewModel.saveNote(note)
             Toast.makeText(requireContext(),"Note Saved" , Toast.LENGTH_SHORT ).show()
+            val button = activity?.findViewById<MaterialButton>(R.id.action_button)
+            button?.visibility = View.GONE
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }

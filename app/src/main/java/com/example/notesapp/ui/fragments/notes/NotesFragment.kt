@@ -4,16 +4,15 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.gson.Gson
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentNotesBinding
 import com.example.notesapp.ui.adapters.NotesAdapter
 import com.example.notesapp.viewmodel.NotesViewModel
+import com.google.android.material.button.MaterialButton
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,8 +29,6 @@ class NotesFragment : Fragment() {
 
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -66,15 +63,26 @@ class NotesFragment : Fragment() {
         _binding = null
     }
 
+    override fun onStart() {
+        super.onStart()
+        val button = activity?.findViewById<MaterialButton>(R.id.action_button)
+        button?.visibility = View.GONE
+    }
+    override fun onResume() {
+        super.onResume()
+        val button = activity?.findViewById<MaterialButton>(R.id.action_button)
+        button?.visibility = View.GONE
+    }
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("inflater.inflate(R.menu.menu_main, menu)", "com.example.notesapp.R")
+    )
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_main, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
                 deleteAllData()
@@ -92,8 +100,8 @@ class NotesFragment : Fragment() {
         builder.setNegativeButton("No"){ _,_ ->
 
         }
-        builder.setTitle("Delete All Notes!")
-        builder.setMessage("Are you sure want to delete All Notes ? ")
+        builder.setTitle("Delete Everything !")
+        builder.setMessage("Are you sure want to delete Everything ? ")
         builder.create().show()
     }
 }
