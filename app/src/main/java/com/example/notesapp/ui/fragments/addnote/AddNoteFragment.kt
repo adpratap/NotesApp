@@ -8,9 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentAddNoteBinding
-import com.example.notesapp.model.UserNotes
 import com.example.notesapp.viewmodel.NotesViewModel
 import com.google.android.material.button.MaterialButton
+import com.noreplypratap.domain.model.DomainNotes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,7 +63,7 @@ class AddNoteFragment : Fragment() {
         if (title.isBlank() || body.isEmpty()){
             Toast.makeText(requireContext(),"Empty..." , Toast.LENGTH_SHORT ).show()
         }else{
-            val note = UserNotes(0,title,body,null)
+            val note = DomainNotes(0,title,body,null)
             notesViewModel.saveNote(note)
             Toast.makeText(requireContext(),"Note Saved" , Toast.LENGTH_SHORT ).show()
             val button = activity?.findViewById<MaterialButton>(R.id.action_button)

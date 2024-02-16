@@ -40,7 +40,8 @@ class NotesFragment : Fragment() {
         binding.rvNotes.adapter = noteAdapter
         recyclerViewOnClick(noteAdapter)
 
-        notesViewModel.getNotes().observe(viewLifecycleOwner) {
+        notesViewModel.getNotes()
+        notesViewModel.notes.observe(viewLifecycleOwner) {
             noteAdapter.differ.submitList(it)
             noteAdapter.notifyDataSetChanged()
         }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.R
-import com.example.notesapp.model.UserNotes
+import com.noreplypratap.domain.model.DomainNotes
 
 class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
@@ -38,19 +38,19 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
         }
     }
 
-    private val diffCallBack = object : DiffUtil.ItemCallback<UserNotes>(){
-        override fun areItemsTheSame(oldItem: UserNotes, newItem: UserNotes): Boolean {
+    private val diffCallBack = object : DiffUtil.ItemCallback<DomainNotes>(){
+        override fun areItemsTheSame(oldItem: DomainNotes, newItem: DomainNotes): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: UserNotes, newItem: UserNotes): Boolean {
+        override fun areContentsTheSame(oldItem: DomainNotes, newItem: DomainNotes): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this,diffCallBack)
-    private var onItemClicked : ((UserNotes) -> Unit)? = null
+    private var onItemClicked : ((DomainNotes) -> Unit)? = null
 
-    fun setOnClickListener(listener : (UserNotes) -> Unit){
+    fun setOnClickListener(listener : (DomainNotes) -> Unit){
         onItemClicked = listener
     }
 }

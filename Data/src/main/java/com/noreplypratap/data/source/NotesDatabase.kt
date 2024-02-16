@@ -1,15 +1,14 @@
-package com.example.notesapp.db
+package com.noreplypratap.data.source
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.notesapp.model.UserNotes
+import com.noreplypratap.data.model.DataNotes
 
-@Database(entities = [UserNotes::class], version = 1 , exportSchema = false)
+@Database(entities = [DataNotes::class], version = 1 , exportSchema = false)
 abstract class NotesDatabase : RoomDatabase() {
     abstract fun getNotesDao() : NotesDao
-
     companion object{
         @Volatile
         private var instance : NotesDatabase? = null
