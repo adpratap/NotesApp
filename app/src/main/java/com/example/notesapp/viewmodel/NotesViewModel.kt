@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.noreplypratap.domain.model.DomainNotes
 import com.noreplypratap.domain.usecases.CreateNotesUseCase
+import com.noreplypratap.domain.usecases.DeleteDatabaseUseCase
 import com.noreplypratap.domain.usecases.DeleteNotesUseCase
 import com.noreplypratap.domain.usecases.ReadNotesUseCase
 import com.noreplypratap.domain.usecases.UpdateNotesUseCase
@@ -20,6 +21,7 @@ class NotesViewModel @Inject constructor(
     private val readNotesUseCase: ReadNotesUseCase,
     private val updateNotesUseCase: UpdateNotesUseCase,
     private val deleteNotesUseCase: DeleteNotesUseCase,
+    private val deleteDatabaseUseCase: DeleteDatabaseUseCase
 ) : ViewModel(){
 
     private val _notes = MutableLiveData<List<DomainNotes>>()
@@ -46,7 +48,7 @@ class NotesViewModel @Inject constructor(
         deleteNotesUseCase(domainNotes)
     }
     fun deleteAllNotes() = viewModelScope.launch(Dispatchers.IO) {
-
+        deleteDatabaseUseCase()
     }
 
 }

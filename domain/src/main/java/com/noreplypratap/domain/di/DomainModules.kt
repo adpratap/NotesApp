@@ -2,6 +2,7 @@ package com.noreplypratap.domain.di
 
 import com.noreplypratap.domain.repository.NotesRepository
 import com.noreplypratap.domain.usecases.CreateNotesUseCase
+import com.noreplypratap.domain.usecases.DeleteDatabaseUseCase
 import com.noreplypratap.domain.usecases.DeleteNotesUseCase
 import com.noreplypratap.domain.usecases.ReadNotesUseCase
 import com.noreplypratap.domain.usecases.UpdateNotesUseCase
@@ -30,5 +31,9 @@ object DomainModules {
     @Provides
     @Singleton
     fun provideDeleteNotesUseCase(notesRepository: NotesRepository): DeleteNotesUseCase = DeleteNotesUseCase(notesRepository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteDatabaseUseCase(notesRepository: NotesRepository): DeleteDatabaseUseCase = DeleteDatabaseUseCase(notesRepository)
 
 }

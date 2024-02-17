@@ -12,7 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Notes App"
+
+rootProject.name = "NotesApp"
 include ':app'
-include ':Domain'
-include ':Data'
+include ':domain'
+include ':data'

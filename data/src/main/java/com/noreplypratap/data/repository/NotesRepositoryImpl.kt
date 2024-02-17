@@ -27,4 +27,9 @@ class NotesRepositoryImpl @Inject constructor(
         notesDao.deleteNote(domainNotes.toDataNotes())
         return true
     }
+
+    override suspend fun deleteDatabase(): Boolean {
+        notesDao.deleteDatabase()
+        return true
+    }
 }
