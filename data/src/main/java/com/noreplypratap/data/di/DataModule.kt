@@ -1,6 +1,7 @@
 package com.noreplypratap.data.di
 
 import android.app.Application
+import androidx.room.Room
 import com.noreplypratap.data.repository.NotesRepositoryImpl
 import com.noreplypratap.data.source.NotesDao
 import com.noreplypratap.data.source.NotesDatabase
@@ -13,17 +14,21 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModules {
+object DataModule {
     @Provides
     @Singleton
     fun provideNotesDao(notesDatabase: NotesDatabase) : NotesDao {
-        return notesDatabase.getNotesDao()
+        return notesDatabase.notesDao
     }
 
     @Provides
     @Singleton
     fun provideDatabase(context: Application) : NotesDatabase {
-        return NotesDatabase.createDB(context)
+        return Room.databaseBuilder(
+            context,
+            NotesDatabase::class.java,
+            NotesDatabase.DATABASE_NAME
+        ).build()
     }
 
     @Provides
@@ -31,6 +36,5 @@ object DataModules {
     fun provideNotesRepository(notesDao: NotesDao) : NotesRepository {
         return NotesRepositoryImpl(notesDao)
     }
-
 
 }

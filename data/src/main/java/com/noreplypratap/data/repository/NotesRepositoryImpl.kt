@@ -4,6 +4,7 @@ import com.noreplypratap.data.mappers.toDataNotes
 import com.noreplypratap.data.source.NotesDao
 import com.noreplypratap.domain.model.DomainNotes
 import com.noreplypratap.domain.repository.NotesRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class NotesRepositoryImpl @Inject constructor(
@@ -14,7 +15,7 @@ class NotesRepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun readNotes(): List<DomainNotes> {
+    override fun readNotes(): Flow<List<DomainNotes>> {
         return notesDao.getNotes()
     }
 

@@ -1,6 +1,5 @@
 package com.noreplypratap.data.source
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,7 +20,7 @@ interface NotesDao {
     suspend fun updateNote(dataNotes: DataNotes)
 
     @Query("SELECT * from notes_table")
-    fun getNotes() : List<DomainNotes>
+    fun getNotes() : Flow<List<DomainNotes>>
 
     @Delete
     suspend fun deleteNote(dataNotes: DataNotes)
